@@ -33,7 +33,7 @@ var albumColdplay = {
      artist: 'Coldplay',
      label: 'Atlantic',
      year: '2009',
-     albumArtUrl: 'assets/images/mylo_xyloto.jpg',
+     albumArtUrl: 'assets/images/album_covers/mylo_xyloto.jpg',
      songs: [
          { title: 'Hurts Like Heaven', duration: '4:02' },
          { title: 'Paradise', duration: '4:38' },
@@ -81,12 +81,11 @@ var setCurrentAlbum = function(album) {
  };
  
  window.onload = function() {
-     setCurrentAlbum(albumPicasso);
- };
-
+    setCurrentAlbum(albumPicasso);
     var albums = [albumPicasso, albumMarconi, albumColdplay];
     var index = 1;
     albumImage.addEventListener("click", function(event) {
+        debugger;
       setCurrentAlbum(albums[index]);
       index++;
     if (index == albums.length) {
