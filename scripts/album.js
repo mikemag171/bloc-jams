@@ -89,7 +89,12 @@ var clickHandler = function(targetElement) {
          songItem.innerHTML = playButtonTemplate;
          currentlyPlayingSong = null;
      }
-
+     } else if (currentlyPlayingSong !== songItem.getAttribute('data-song-number')) {
+         var currentlyPlayingSongElement = document.querySelector('[data-song-number="' + currentlyPlayingSong + '"]');
+         currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number');
+         songItem.innerHTML = pauseButtonTemplate;
+         currentlyPlayingSong = songItem.getAttribute('data-song-number');
+     }
 };
  
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
@@ -116,11 +121,16 @@ songListContainer.addEventListener('click'), function(event) {
     
 for (var i = 0; i < songRows.length; i++) {
          songRows[i].addEventListener('mouseleave', function(event) {
-             this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
-             // Revert the content back to the number
+             var songItem = getSongItem(event.target);
+             var songItemNumber = songItem.getAttribute('data-song-number');
+ 
+             // #2
+             if (songItemNumber !== currentlyPlayingSong) {
+                 songItem.innerHTML = songItemNumber;
+             }
          });
          songRows[i].addEventListener('click', function(event) {
-             // Event handler call
+         clickHandler(event.target);
          });
      }
 
