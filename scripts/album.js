@@ -64,7 +64,6 @@ var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
 var setCurrentAlbum = function(album) {
      
- 
      // #2
      albumTitle.firstChild.nodeValue = album.title;
      albumArtist.firstChild.nodeValue = album.artist;
@@ -99,13 +98,12 @@ window.onload = function() {
              // Revert the content back to the number
       });
    }
-}
-    var albums = [albumPicasso, albumMarconi, albumColdplay];
-    var index = 1;
-    albumImage.addEventListener("click", function(event) {
-        //debugger;
-      setCurrentAlbum(albums[index]);
-      index++;
+
+  var albums = [albumPicasso, albumMarconi, albumColdplay];
+  var index = 1;
+  albumImage.addEventListener("click", function(event) {
+    setCurrentAlbum(albums[index]);
+    index++;
     if (index == albums.length) {
         index = 0;
     }
