@@ -123,11 +123,10 @@ songListContainer.addEventListener('mouseover', function(event) {
     event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
   }
     
-songListContainer.addEventListener('click'), function(event) {
+songListContainer.addEventListener('click', function(event) {
   if (event.target.parentElement.className === 'album-view-song-item') {
   event.target.parentElement.querySelector('.songitem-number').innerHTML = pauseButtonTemplate;
   }
-}
 });
     
 for (var i = 0; i < songRows.length; i++) {
@@ -140,10 +139,12 @@ for (var i = 0; i < songRows.length; i++) {
     songItem.innerHTML = songItemNumber;
   }
   });
-    songRows[i].addEventListener('click', function(event) {
+  
+  songRows[i].addEventListener('click', function(event) {
     clickHandler(event.target);
-  });
-     }
+    
+    });
+  }
 
     var albums = [albumPicasso, albumMarconi, albumColdplay];
     var index = 1;
