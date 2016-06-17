@@ -54,6 +54,8 @@ var createSongRow = function(songNumber, songName, songLength) {
       + '  <td class="song-item-duration">' + songLength + '</td>'
       + '</tr>'
       ;
+    
+    
  
      return template;
  };
@@ -74,7 +76,8 @@ var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 //???? Are nodes the same as elements? If not, what is the difference.
 //
 //???? How is 'firstChild.nodeValue' different from 'inner.HTML'?
-//
+//  >>  <td><textnoode>album.title</textnode></td> (text node isn't actually tagged, but is a kind of container in the cell or  
+//      in any element.)
 var setCurrentAlbum = function(album) {
      // #2
      albumTitle.firstChild.nodeValue = album.title;
@@ -93,7 +96,7 @@ var setCurrentAlbum = function(album) {
 
 //The following is a switch, which is used in the clickHandler function below. It returns the className of an element it is selected as an eventTarget.????
 //???? What exactly is the switch needed for, if the clickHandler function is also routing some of the click functions?
-//
+//This returns the cell that contains the song number, or the button (the left most cell of the row.)
 var getSongItem = function(element) {
     switch (element.className) {
         case 'album-song-button':
@@ -114,7 +117,7 @@ var getSongItem = function(element) {
 
 //****This variable contains a function whose argument is the targetElement, and then uses an 'if' conditional to determine if the currentlyPlayingSong is null. In that case, the songItem is set to pauseButtonTemplate AND the currentlyPlayingSong's class is set to 'data-song-number'?????????
 //???? What exactly is the targetElement and targetClass? Wouldn't these just be included in the 'element'? (A button click?)
-//
+//This handles a click event, and updates the cell... 
 //
 var clickHandler = function(targetElement) {
   var songItem = getSongItem(targetElement); 
@@ -140,7 +143,7 @@ var songRows = document.getElementsByClassName('album-view-song-item');
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 //Creates a variable of the pause-button icon.
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
-//?????? Creates a variable of*************
+//???? Creates a variable of*************
 var currentlyPlayingSong = null;
 
 
@@ -153,28 +156,53 @@ window.onload = function() {
   //Sets first album to albumPicasso.
   setCurrentAlbum(albumPicasso);
   
-  //***************** This function takes two arguments: the element and the targetClass, and determines if the currentParent.className is NOT equal to the targetClass. 
+  //****This function takes two arguments: the element and the targetClass, and determines if the currentParent.className is NOT equal to the targetClass. 
   //?????? How is the targetClass different from the element itself? Shouldn't the class name be in the element's name?
   //
+  /*
   var findParentByClassName = function(element, targetClass) {
     if (element) {
       var currentParent = element.parentElement;
       while (currentParent.className != targetClass && currentParent.className !== null) {
         currentParent = currentParent.parentElement;
     }
+    */
         
-/* var findParentByClasName = function(element, targetClass) {
-     if (element.parentElement == null) {  
-     alert("No parent found");
-     } else if (parentElement.targetClass == null) {
-     alert("No parent found with that clas name")}
-*/
-}
-     }
+    
+    var findParentByClassName = function (element, targetClass) {
+        debugger;
+      var parent = null;
         
+      if (element) {
+          parent = element.parentElement;
+          if (parent === null) {
+              alert("No parent found.");
+          } else {
+              while (parent && parent.className !== targetClass) {
+                  parent = parent.parentElement;
+              }         
+          }          
+      }
+        
+        if (parent === null) {
+            alert("No parent found with that class name.");
+        }
+        return parent;
+    };
+    /*
+  
+  var findParentByClassName = function(element, targetClass) {
+    if (element) {  
+      var currentParent = element.parentElement;
+      } while (currentParent.targetClass != targetClass) {
+        alert("No parent found.");
+      } while (currentParent.className !== null) {
+        alert("No parent found with that class name.");
+      }
+
     return currentParent;
-    } 
-  }; 
+     
+  }; */
     
   // This is an event listener within the songListContainer. When the mouse is over this section, the 'mouseover' event then issue a conditional statmement: if the parentElement.className is equal to the album-view-song-item, then the parentElement's '.song-item-numer' will changed (via .innerHTML) to be the 'playButtonTemplate.'
   songListContainer.addEventListener('mouseover', function(event) {
