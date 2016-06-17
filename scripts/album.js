@@ -27,6 +27,8 @@ var albumMarconi = {
          { title: 'Wrong phone number', duration: '2:15'}
      ]
  };
+//???? Is the above set of titles/duration an object containing an array? To confirm, an object can contain an array?
+//
 
 var albumColdplay = {
      title: 'Mylo Xyloto',
@@ -61,10 +63,18 @@ var albumTitle = document.getElementsByClassName('album-view-title')[0];
 var albumArtist = document.getElementsByClassName('album-view-artist')[0];
 var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
 var albumImage = document.getElementsByClassName('album-cover-art')[0];
+
+//albumSongList is the object of a table <table class='albumSongList'>
 var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
 // This following section instructs each specific value of each album to change as albums in the array are cycled. 
-//???????? When the firstChild is accessed, the nodeValue returns the what???? What is the difference between firstChild itself and the nodeValue?
+//???? When the firstChild is accessed, the nodeValue returns the what???? What is the difference between firstChild itself and the nodeValue?
+//
+
+//???? Are nodes the same as elements? If not, what is the difference.
+//
+//???? How is 'firstChild.nodeValue' different from 'inner.HTML'?
+//
 var setCurrentAlbum = function(album) {
      // #2
      albumTitle.firstChild.nodeValue = album.title;
@@ -81,8 +91,9 @@ var setCurrentAlbum = function(album) {
      }
  };
 
-//The following is a switch, which is used in the clickHandler function below. It returns the className of an element it is selected as an eventTarget.???????????????
-//??????? What exactly is the 
+//The following is a switch, which is used in the clickHandler function below. It returns the className of an element it is selected as an eventTarget.????
+//???? What exactly is the switch needed for, if the clickHandler function is also routing some of the click functions?
+//
 var getSongItem = function(element) {
     switch (element.className) {
         case 'album-song-button':
@@ -101,8 +112,8 @@ var getSongItem = function(element) {
     }  
 };
 
-//**************This variable contains a function whose argument is the targetElement, and then uses an 'if' conditional to determine if the currentlyPlayingSong is null. In that case, the songItem is set to pauseButtonTemplate AND the currentlyPlayingSong's class is set to 'data-song-number'?????????
-//?????? What exactly is the targetElement? (A button click?)
+//****This variable contains a function whose argument is the targetElement, and then uses an 'if' conditional to determine if the currentlyPlayingSong is null. In that case, the songItem is set to pauseButtonTemplate AND the currentlyPlayingSong's class is set to 'data-song-number'?????????
+//???? What exactly is the targetElement and targetClass? Wouldn't these just be included in the 'element'? (A button click?)
 //
 //
 var clickHandler = function(targetElement) {
@@ -129,11 +140,11 @@ var songRows = document.getElementsByClassName('album-view-song-item');
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 //Creates a variable of the pause-button icon.
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
-//Creates a variable of*************
+//?????? Creates a variable of*************
 var currentlyPlayingSong = null;
 
 
-//The following code first tells that when the load pages, the current album should be Picasso. 
+//The following code executes upon window.onload, the current album should be Picasso. 
 //Next, the variable findParentByClassName is set with a function and a conditional 'if' statement.
 //Two arguments are taken for this function: element & targetClass
 //The conditional statement states that if an element is passed, the element should be passed as the parentElement.
@@ -188,7 +199,7 @@ window.onload = function() {
       var songItemNumber = songItem.getAttribute('data-song-number');
  
     
-    // #2- This 'if' conditional sets, if the songItemNumber is not the currentlyPlayingSong, to be reset (via .innerHTML) back to the songItemNumber.
+    // #2- This 'if' conditional sets, if the songItemNumber is not the currentlyPlayingSong, to be reset (via .innerHTML) back to its variable songItemNumber.
     if (songItemNumber !== currentlyPlayingSong) {
       songItem.innerHTML = songItemNumber;
     }
