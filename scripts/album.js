@@ -55,7 +55,7 @@ var createSongRow = function(songNumber, songName, songLength) {
      return template;
  };
 
-// #1-This section identifies each part of each album, and prepares them to be accessed.
+// #1-This section identifies each elemental part of each album, and prepares them to be accessed as DOM objects.
 var albumTitle = document.getElementsByClassName('album-view-title')[0];
 var albumArtist = document.getElementsByClassName('album-view-artist')[0];
 var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
@@ -115,10 +115,15 @@ var clickHandler = function(targetElement) {
   }
 };
  
+//Creates a variable of the DOM of the list of songs.
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
+//Creates a variable of specific song elements.
 var songRows = document.getElementsByClassName('album-view-song-item');
+//Creates a variable of the play-button icon.
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+//Creates a variable of the pause-button icon.
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
+//Creates a variable of*************
 var currentlyPlayingSong = null;
 
 
@@ -128,7 +133,10 @@ var currentlyPlayingSong = null;
 //The conditional statement states that if an element is passed, the element should be passed as the parentElement.
 //While that the className of that currentParent is not equal to the targetClass, and the className of the currentParent is null, the setCurrentAlbum function should then return currentParent (which should be the next album in the album array.) 
 window.onload = function() {
+  //Sets first album to albumPicasso.
   setCurrentAlbum(albumPicasso);
+  
+  //      
   var findParentByClassName = function(element, targetClass) {
     if (element) {
       var currentParent = element.parentElement;
@@ -136,7 +144,7 @@ window.onload = function() {
         currentParent = currentParent.parentElement;
       }
     return currentParent;
-    }
+    } 
   }; 
     
   // This is an event listener within the songListContainer. When the mouse is over this section, the 'mouseover' event then issue a conditional statmement: if the parentElement.className is equal to the album-view-song-item, then the parentElement's '.song-item-numer' will changed (via .innerHTML) to be the 'playButtonTemplate.'
@@ -161,13 +169,15 @@ window.onload = function() {
       var songItem = getSongItem(event.target);
       var songItemNumber = songItem.getAttribute('data-song-number');
  
-             // #2
+    
+    // #2- This 'if' conditional sets, if the songItemNumber is not the currentlyPlayingSong, to be reset (via .innerHTML) back to the songItemNumber.
     if (songItemNumber !== currentlyPlayingSong) {
       songItem.innerHTML = songItemNumber;
     }
   });
   
-  songRows[i].addEventListener('click', function(event) {
+    //  
+    songRows[i].addEventListener('click', function(event) {
     clickHandler(event.target);
     });
   }
