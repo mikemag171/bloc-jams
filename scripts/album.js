@@ -79,8 +79,23 @@ var setCurrentAlbum = function(album) {
      }
  };
 
-//Does this function belong here?
-var getSongItem = function(element){
+
+var getSongItem = function(element) {
+    switch (element.className) {
+        case 'album-song-button':
+        case 'ion-play':
+        case 'ion-pause':
+            return findParentByClassName(element, 'song-item-number');
+        case 'album-view-song-item':
+            return element.querySelector('.song-item-number');
+        case 'song-item-title':
+        case 'song-item-duration':
+            return findParentByClassName(element, 'album-view-song-item').querySelector('.song-item-number');
+        case 'song-item-number':
+            return element;
+        default:
+            return;
+    }  
 };
 
 //
@@ -129,14 +144,18 @@ window.onload = function() {
     if (event.target.parentElement.className === 'album-view-song-item') {
     event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
     }
-    
+  });
+ 
   //If the event target is the parentElement with className of 'album-view-song-item', then the 'songitem-number' should by changed, via .innterHTML, to pauseButtonTemplate.
   songListContainer.addEventListener('click', function(event) {
     if (event.target.parentElement.className === 'album-view-song-item') {
     event.target.parentElement.querySelector('.songitem-number').innerHTML = pauseButtonTemplate;
     }
   });
-    
+  
+  //This 'for' loop cycles through the song list, listening for when the mouse leaves each row. 
+  //And when the mouse does leave, it executes the function with "event" as an argument. 
+  //The variable songItem then houses the getSongItem function (a switch conditional that calls the element's className), which finds the event.target (the particular song line that the mouse was leaving).    
   for (var i = 0; i < songRows.length; i++) {
     songRows[i].addEventListener('mouseleave', function(event) {
       var songItem = getSongItem(event.target);
