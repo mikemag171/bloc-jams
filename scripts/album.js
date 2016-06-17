@@ -43,6 +43,7 @@ var albumColdplay = {
      ]
  };
 
+//createSongRom is a variable that contains the html template through which the album objects' info can be passed.
 var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -55,14 +56,15 @@ var createSongRow = function(songNumber, songName, songLength) {
      return template;
  };
 
-// #1-This section identifies each elemental part of each album, and prepares them to be accessed as DOM objects.
+// #1-This section identifies each elemental part of each album as variables, and prepares them to be accessed as DOM objects.
 var albumTitle = document.getElementsByClassName('album-view-title')[0];
 var albumArtist = document.getElementsByClassName('album-view-artist')[0];
 var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
 var albumImage = document.getElementsByClassName('album-cover-art')[0];
 var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
-// This following section instructs each specific value of each album to change as albums in the array are cycled.
+// This following section instructs each specific value of each album to change as albums in the array are cycled. 
+//???????? When the firstChild is accessed, the nodeValue returns the what???? What is the difference between firstChild itself and the nodeValue?
 var setCurrentAlbum = function(album) {
      // #2
      albumTitle.firstChild.nodeValue = album.title;
@@ -79,7 +81,8 @@ var setCurrentAlbum = function(album) {
      }
  };
 
-
+//The following is a switch, which is used in the clickHandler function below. It returns the className of an element it is selected as an eventTarget.???????????????
+//??????? What exactly is the 
 var getSongItem = function(element) {
     switch (element.className) {
         case 'album-song-button':
@@ -98,6 +101,9 @@ var getSongItem = function(element) {
     }  
 };
 
+//**************This variable contains a function whose argument is the targetElement, and then uses an 'if' conditional to determine if the currentlyPlayingSong is null. In that case, the songItem is set to pauseButtonTemplate AND the currentlyPlayingSong's class is set to 'data-song-number'?????????
+//?????? What exactly is the targetElement? (A button click?)
+//
 //
 var clickHandler = function(targetElement) {
   var songItem = getSongItem(targetElement); 
@@ -136,13 +142,25 @@ window.onload = function() {
   //Sets first album to albumPicasso.
   setCurrentAlbum(albumPicasso);
   
-  //      
+  //***************** This function takes two arguments: the element and the targetClass, and determines if the currentParent.className is NOT equal to the targetClass. 
+  //?????? How is the targetClass different from the element itself? Shouldn't the class name be in the element's name?
+  //
   var findParentByClassName = function(element, targetClass) {
     if (element) {
       var currentParent = element.parentElement;
       while (currentParent.className != targetClass && currentParent.className !== null) {
         currentParent = currentParent.parentElement;
-      }
+    }
+        
+/* var findParentByClasName = function(element, targetClass) {
+     if (element.parentElement == null) {  
+     alert("No parent found");
+     } else if (parentElement.targetClass == null) {
+     alert("No parent found with that clas name")}
+*/
+}
+     }
+        
     return currentParent;
     } 
   }; 
@@ -176,7 +194,7 @@ window.onload = function() {
     }
   });
   
-    //  
+    // This code adds an eventListener to each of the songRows, and then executes the clickHandler function on the selected target. 
     songRows[i].addEventListener('click', function(event) {
     clickHandler(event.target);
     });
