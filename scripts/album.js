@@ -27,6 +27,7 @@ var albumMarconi = {
          { title: 'Wrong phone number', duration: '2:15'}
      ]
  };
+
 //???? Is the above set of titles/duration an object containing an array? To confirm, an object can contain an array?
 //
 
@@ -84,7 +85,6 @@ var clickHandler = function() {
 		currentlyPlayingCell.html(currentlyPlayingSong);
 	}
 	if (currentlyPlayingSong !== songNumber) {
-		// Switch from Play -> Pause button to indicate new song is playing.
 		$(this).html(pauseButtonTemplate);
 		currentlyPlayingSong = songNumber;
 	} else if (currentlyPlayingSong === songNumber) {
@@ -100,9 +100,9 @@ var clickHandler = function() {
      $row.hover(onHover, offHover);
      // #3
      return $row;
- };
+};
 
-// #1-This section identifies each elemental part of each album as variables, and prepares them to be accessed as DOM objects.
+     // #1-This section identifies each elemental part of each album as variables, and prepares them to be accessed as DOM objects.
      var $albumTitle = $('.album-view-title');
      var $albumArtist = $('.album-view-artist');
      var $albumReleaseInfo = $('.album-view-release-info');
@@ -112,12 +112,6 @@ var clickHandler = function() {
 //albumSongList is the object of a table <table class='albumSongList'>
 var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
-
-
-
-//???? How is 'firstChild.nodeValue' different from 'inner.HTML'?
-//  >>  <td><textnoode>album.title</textnode></td> (text node isn't actually tagged, but is a kind of container in the cell or  
-//      in any element.)
 var setCurrentAlbum = function(album) {
      // #2
      $albumTitle.text(album.title);
@@ -128,31 +122,44 @@ var setCurrentAlbum = function(album) {
 
     //This resets the song-list to be blank, so that the 'for' loop can then repropagate the songs of the next album (in the array).
      $albumSongList.empty();
+    for (var i = 0; i < album.songs.length; i++) {
      // #4
      var $newRow = createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
          $albumSongList.append($newRow);
      }
  };
 
-//Creates a variable of the play-button icon.
+
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
-//Creates a variable of the pause-button icon.
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
-//???? Creates a variable of*************
 var currentlyPlayingSong = null;
 
 $(document).ready(function() {
-  //Sets first album to albumPicasso.
   setCurrentAlbum(albumPicasso);
-  
-    var albums = [albumPicasso, albumMarconi, albumColdplay];
+
+    
+
+var albums = [albumPicasso, albumMarconi, albumColdplay];
     var index = 1;
     albumImage.addEventListener("click", function(event) {
-        //debugger;
+        
         setCurrentAlbum(albums[index]);
         index++;
     if (index == albums.length) {
         index = 0;
     }
     });
-};
+
+/*
+var albums = [albumPicasso, albumMarconi, albumColdplay];
+    var index = 1;
+    $($albumImage ("click", function(event) {
+        
+        setCurrentAlbum(albums[index]);
+        index++;
+    if (index == albums.length) {
+        index = 0;
+    }
+    });
+    
+    */

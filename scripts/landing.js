@@ -22,7 +22,6 @@ $(window).load(function() {
      $(window).scroll(function(event) {
          if ($(window).scrollTop() >= scrollDistance) {
              animatePoints();
-
          }
      });
 });
