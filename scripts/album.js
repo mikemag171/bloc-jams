@@ -139,17 +139,16 @@ $(document).ready(function() {
 
     
 
-var albums = [albumPicasso, albumMarconi, albumColdplay];
+    var albums = [albumPicasso, albumMarconi, albumColdplay];
     var index = 1;
-    albumImage.addEventListener("click", function(event) {
-        
+    $albumImage.on("click", function(event) {
         setCurrentAlbum(albums[index]);
         index++;
-    if (index == albums.length) {
-        index = 0;
-    }
+        if (index == albums.length) {
+            index = 0;
+        }
     });
-
+});
 /*
 var albums = [albumPicasso, albumMarconi, albumColdplay];
     var index = 1;
