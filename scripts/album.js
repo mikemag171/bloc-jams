@@ -11,7 +11,7 @@ var createSongRow = function(songNumber, songName, songLength) {
     
      var onHover = function(event) {
         var songNumberCell = $(this).find('.song-item-number');
-        var songNumber = parseInt($(this).attr('data-song-number'));
+        var songNumber = parseInt(songNumberCell.attr('data-song-number'));
 
         if (songNumber !== currentlyPlayingSongNumber) {
             songNumberCell.html(playButtonTemplate);
@@ -20,8 +20,9 @@ var createSongRow = function(songNumber, songName, songLength) {
 
      var offHover = function(event) {
         var songNumberCell = $(this).find('.song-item-number');
-        var songNumber = parseInt($(this).attr('data-song-number'));
+        var songNumber = parseInt(songNumberCell.attr('data-song-number'));
 
+        
         if (songNumber !== currentlyPlayingSongNumber) {
             songNumberCell.html(songNumber);
         }
@@ -182,6 +183,7 @@ $(document).ready(function() {
 
     var albums = [albumPicasso, albumMarconi, albumColdplay];
     var index = 1;
+    var $albumImage = $('.album-cover-art');
     $albumImage.on("click", function(event) {
         setCurrentAlbum(albums[index]);
         index++;
